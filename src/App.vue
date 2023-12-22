@@ -1,13 +1,25 @@
 <script setup>
-import { onMounted, ref } from 'vue';
+import { ref, watch } from 'vue';
 
-const p = ref(null);
+const todoId = ref(1);
+const todoData = ref(null);
 
-onMounted(() => {
-  p.value.textContent = 'On Mounted!!';
-});
+async function fetchData() {
+  todoData.value = null;
+  const res = await fetch(
+    `https://jsonplaceholder.typicode.com/todos/${todoId.value}`
+  );
+  todoData.value = await res.json();
+}
+
+fetchData();
+
+watch(todoId, fetchData);
 </script>
 
 <template>
-  <p ref="p">안녕</p>
+  <p>할 일 id: {{ todoId }}</p>
+  <button @click="todoId++">다음 할 일 가져오기</button>
+  <p v-if="!todoData">로딩...</p>
+  <pre v-else>{{ todoData }}</pre>
 </template>
