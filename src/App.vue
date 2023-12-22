@@ -2,9 +2,10 @@
 import { ref } from 'vue';
 import ChildComp from './ChildComp.vue';
 
-const greeting = ref('부모 컴포넌트로부터 💌을 전달받았어요!');
+const childMsg = ref('자식 컴포넌트로부터 아직 메시지를 받지 못했어요!');
 </script>
 
 <template>
-  <ChildComp :msg="greeting" />
+  <ChildComp @response="(msg) => (childMsg = msg)" />
+  <p>{{ childMsg }}</p>
 </template>
