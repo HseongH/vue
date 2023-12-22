@@ -1,49 +1,13 @@
 <script setup>
-import { ref, computed } from 'vue';
+import { onMounted, ref } from 'vue';
 
-let id = 0;
+const p = ref(null);
 
-const newTodo = ref('');
-const hideCompleted = ref(false);
-const todos = ref([
-  { id: id++, text: 'HTML 배우기', done: true },
-  { id: id++, text: 'JavaScript 배우기', done: true },
-  { id: id++, text: 'Vue 배우기', done: false },
-]);
-
-const filteredTodos = computed(() => {
-  return hideCompleted.value ? todos.value.filter((t) => !t.done) : todos.value;
+onMounted(() => {
+  p.value.textContent = 'On Mounted!!';
 });
-
-function addTodo() {
-  todos.value.push({ id: id++, text: newTodo.value, done: false });
-  newTodo.value = '';
-}
-
-function removeTodo(todo) {
-  todos.value = todos.value.filter((t) => t !== todo);
-}
 </script>
 
 <template>
-  <form @submit.prevent="addTodo">
-    <input v-model="newTodo" />
-    <button>Add Todo</button>
-  </form>
-  <ul>
-    <li v-for="todo in filteredTodos" :key="todo.id">
-      <input type="checkbox" v-model="todo.done" />
-      <span :class="{ done: todo.done }">{{ todo.text }}</span>
-      <button @click="removeTodo(todo)">X</button>
-    </li>
-  </ul>
-  <button @click="hideCompleted = !hideCompleted">
-    {{ hideCompleted ? 'Show all' : 'Hide completed' }}
-  </button>
+  <p ref="p">안녕</p>
 </template>
-
-<style>
-.done {
-  text-decoration: line-through;
-}
-</style>
