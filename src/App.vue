@@ -1,15 +1,12 @@
 <script setup>
 import { ref } from 'vue';
 
-const titleClass = ref('title');
+const count = ref(0);
+
+const increment = () => count.value++;
 </script>
 
 <template>
-  <h1 :class="titleClass">나를 빨갛게 만들어 보세요</h1>
+  <!-- 이 버튼이 작동하도록 만들어 봅시다 -->
+  <button @click="increment">숫자 세기: {{ count }}</button>
 </template>
-
-<style>
-.title {
-  color: red;
-}
-</style>
