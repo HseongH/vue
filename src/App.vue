@@ -1,13 +1,15 @@
 <script setup>
-import { reactive, ref } from 'vue';
+import { ref } from 'vue';
 
-const message = ref('Title');
-const counter = reactive({ count: 0 });
-
-const increament = () => counter.count++;
+const titleClass = ref('title');
 </script>
 
 <template>
-  <h1>{{ message }}</h1>
-  <button @click="increament">{{ counter.count }}번 클릭</button>
+  <h1 :class="titleClass">나를 빨갛게 만들어 보세요</h1>
 </template>
+
+<style>
+.title {
+  color: red;
+}
+</style>
